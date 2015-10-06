@@ -6,6 +6,7 @@ The meaningful triplets of entities could be:
 * President Obama, gave, speech
 * President Obama, gave a speech at, New Jersey
 * President Obama, gave a speech to, thousands of people
+
 These triples could help in Natural Language search.
 
 ####Dependencies
@@ -16,5 +17,7 @@ In order to run the code, the following packages need to be installed first:
 2. Directory of Stanford coreNLP tool ( http://nlp.stanford.edu/software/corenlp.shtml ) needs to be in the same directory, where the code is being run.
 
 ####Usage
+Run:
 
+>python extract.py
 
