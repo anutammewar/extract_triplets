@@ -18,6 +18,7 @@ In order to run the code, the following packages need to be installed first:
 
 ####Usage
 Run:
-
 >python extract.py
+
+The program will ask for a wikipedia page title. Let's say the we are looking for "Mumbai", then type "Mumbai" and press return. The program will keep asking for new pages untill given a signal to stop.
 
