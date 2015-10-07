@@ -14,7 +14,7 @@ In order to run the code, the following packages need to be installed first:
 
 1. Wikipedia python library https://github.com/goldsmith/Wikipedia
 
-2. Directory of Stanford coreNLP tool ( http://nlp.stanford.edu/software/corenlp.shtml ) needs to be in the same directory, where the code is being run.
+2. Directory of Stanford coreNLP tool ( http://nlp.stanford.edu/software/corenlp.shtml ) needs to be in the same directory, where the code is being run. Use CoreNLP version 3.5.2 , as it provides Universal Dependency Labels. 
 
 ####Usage
 Run:
