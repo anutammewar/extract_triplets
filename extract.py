@@ -150,7 +150,7 @@ def formTriplets(entity1,entity2):
         if "nmod" not in rels:# if there is no other argument (other than direct-object) then go to next sentence
             return -1
         else:
-	        entity2=combineVerbWords("dobj") # modified entity2
+	        entity2=combineVerbWords("dobj") # modified entity2 (combine verb with direct object)
 
 
     head="-1"
@@ -212,7 +212,7 @@ def extract_triplets(sentences):
 
 
 while 1:
-    """print "Enter the Wikipedia Page Title"
+    print "Enter the Wikipedia Page Title"
     title=raw_input()
     page=wikipedia.page(title)#fetch the page
     w=codecs.open("input.txt","w","utf-8")
@@ -220,7 +220,7 @@ while 1:
     w.close()
     #run coreNLP
     print "wait for sometime! Running coreNLP."
-    commands.getstatusoutput('java -cp "stanford-corenlp-full-2015-04-20/*" -Xmx2g edu.stanford.nlp.pipeline.StanfordCoreNLP -annotators tokenize,ssplit,pos,lemma,ner,parse,dcoref -file input.txt')"""
+    commands.getstatusoutput('java -cp "stanford-corenlp-full-2015-04-20/*" -Xmx2g edu.stanford.nlp.pipeline.StanfordCoreNLP -annotators tokenize,ssplit,pos,lemma,ner,parse,dcoref -file input.txt')
     xmldoc = minidom.parse("input.txt.xml")# parse the xml document
     sentences = xmldoc.getElementsByTagName('sentence')
     extract_triplets(sentences)
