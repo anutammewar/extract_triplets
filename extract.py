@@ -12,7 +12,7 @@ rels={}# list of relation labels found in the tree
 tuples=[]# list of relation tiples (rel label, head, child)
 triplets=[] # list of meaningful triplets
 root=""
-
+w=open("triplets.txt","w")
 
 def combineVerbWords(comb_type):
     global id_map, tree_up, tree_down, rels, tuples, root, triplets
@@ -132,7 +132,7 @@ def getObject(head):
 #-----------------------------------------------------------------
 
 def formTriplets(entity1,entity2):
-    global id_map, tree_up, tree_down, rels, tuples, root, triplets
+    global id_map, tree_up, tree_down, rels, tuples, root, triplets,w
     #print "inside getObject"
 	#first get the direct-object as the entity3
     entity3=[]
@@ -143,14 +143,14 @@ def formTriplets(entity1,entity2):
             break
     if head != "-1":#direct object present
         entity3=getObject(head)#get direct object entity
-        print (entity1,entity2,entity3) 
+        w.write(str((entity1,entity2,entity3))+"\n")
         triplets.append((entity1,entity2,entity3))#(entity1,entity2,direct-object)
 
         #print rels
         if "nmod" not in rels:# if there is no other argument (other than direct-object) then go to next sentence
             return -1
         else:
-	        entity2=combineVerbWords("dobj") # modified entity2 (combine verb with direct object)
+	        entity2=combineVerbWords("dobj") # modified entity2
 
 
     head="-1"
@@ -160,7 +160,7 @@ def formTriplets(entity1,entity2):
             head=rel[2]
             entity3=getObject(head)
             triplets.append((entity1,entity2,entity3))
-            print (entity1,entity2,entity3)
+            w.write(str((entity1,entity2,entity3))+"\n")
     if head=="-1":
             return -1
     return 1
@@ -169,8 +169,8 @@ def formTriplets(entity1,entity2):
 
 def extract_triplets(sentences):
 	for sentence in sentences:
-	    print "="*50
-	    global id_map, tree_up, tree_down, rels, tuples, root, triplets
+	    global id_map, tree_up, tree_down, rels, tuples, root, triplets,w
+	    w.write("="*50+"\n")
 	    id_map={}
 	    tree_up={}
 	    tree_down={}
@@ -215,13 +215,14 @@ while 1:
     print "Enter the Wikipedia Page Title"
     title=raw_input()
     page=wikipedia.page(title)#fetch the page
-    w=codecs.open("input.txt","w","utf-8")
-    w.write(re.sub(r"\=\=.+\=\=","",page.content))#get the text content
-    w.close()
+    inp=codecs.open("input.txt","w","utf-8")
+    inp.write(re.sub(r"\=\=.+\=\=","",page.content))#get the text content
+    inp.close()
     #run coreNLP
     print "wait for sometime! Running coreNLP."
     commands.getstatusoutput('java -cp "stanford-corenlp-full-2015-04-20/*" -Xmx2g edu.stanford.nlp.pipeline.StanfordCoreNLP -annotators tokenize,ssplit,pos,lemma,ner,parse,dcoref -file input.txt')
     xmldoc = minidom.parse("input.txt.xml")# parse the xml document
     sentences = xmldoc.getElementsByTagName('sentence')
     extract_triplets(sentences)
+    print "output in triplets.txt"
     break
